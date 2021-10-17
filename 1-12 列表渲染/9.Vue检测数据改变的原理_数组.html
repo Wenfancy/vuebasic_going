@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Vue监测数据改变的原理</title>
+	<!-- 引入Vue -->
+	<script type="text/javascript" src="/js/vue.js"></script>
+</head>
+
+<body>
+	<!-- 准备好一个容器-->
+	<div id="root">
+		<h1>学校名称</h1>
+		<h2>名称：{{school.name}}</h2>
+		<h2>地址：{{school.address}}</h2>
+		<h2 v-show='school.leader'>校长：{{school.leader}}</h2>
+		<button @click="addLeader">添加一个🏫leader属性</button>
+		<hr>
+		<h1>学生信息</h1>
+		<button @click='addSex'>添加一个性别属性,默认是🚹</button>
+		<h2>姓名:{{student.name}}</h2>
+		<h2 v-show='student.sex'>性别:{{student.sex}}</h2>
+		<h2>年龄:真实{{student.age.rAge}},对外{{student.age.sAge}}</h2>
+		<hr>
+		<h2>Friends</h2>
+		<ul>
+			<li v-for='(f,index) in student.friends' :key="index">
+				{{f.name}}--{{f.age}}
+			</li>
+		</ul>
+		<h2>爱好</h2>
+		<ul>
+			<li v-for='(h,index) in student.hobby' :key="index">
+				{{h}}
+			</li>
+		</ul>
+	</div>
+</body>
+
+<script type="text/javascript">
+	Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+
+	const vm = new Vue({
+		el: '#root',
+		data: {
+			school: {
+				name: '河科大',
+				address: '洛阳',
+			},
+			student: {
+				name: 'tom',
+				age: {
+					rAge: 40,
+					sAge: 29,
+				},
+				hobby:['抽烟','喝酒','烫头'],//没有为其内部数据服务的getter和setter，不能让vue监测到数据的变化
+				//而用某些特定的数组方法（7个）能够触发实时监测
+				friends: [{
+						name: 'Jerry',
+						age: 35
+					},
+					{
+						name: 'Tony',
+						age: 25
+					}
+				]
+			}
+		},
+		methods: {
+			addSex() {
+				//方法一
+				//Vue.set(this.student,'sex','🚹');
+				//方法二
+				this.$set(this.student, 'sex', '🚹')
+			},
+			addLeader(){
+				Vue.set(this.school, 'leader', '罗家伦');
+			}
+		},
+	})
+</script>
+
+</html>

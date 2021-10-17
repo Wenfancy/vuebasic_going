@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <!-- 遍历数组 -->
+        <button @click='updateMei'>更新第一个人的信息</button>
+        <h2>人员列表</h2>
+        <ul>
+            <li v-for='(p,index) of persons' :key='p.id'>
+                {{p.id}}-{{p.name}}--{{p.sex}}--{{p.age}}
+                <input type="text" placeholder="备注">
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //设置为 false 以阻止 vue 在启动时生成生产提示
+        //用computed实现 优先使用
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [{
+                        id: '001',
+                        name: '张毅',
+                        age: 18,
+                        sex: '男'
+                    },
+                    {
+                        id: '002',
+                        name: '李键',
+                        age: 29,
+                        sex: '男'
+                    },
+                    {
+                        id: '003',
+                        name: '赵雯',
+                        age: 19,
+                        sex: '女'
+                    },
+                    {
+                        id: '004',
+                        name: '徐鹤',
+                        age: 21,
+                        sex: '女'
+                    },
+                    {
+                        id: '005',
+                        name: '赵玥',
+                        age: 25,
+                        sex: '女'
+                    },
+                ],
+            },
+            methods: {
+                updateMei() {
+                    //this.persons[0].name='马老师'//奏效
+                    //this.persons[0].age=50//奏效
+                    //this.persons[0].sex='男'//奏效
+                    //this.persons[0]={id:'001',name:'马老师',age:'50',sex:'男'}; 不奏效
+                    this.persons.splice(0, 1, {
+                        id: '001',
+                        name: '马老师',
+                        age: '50',
+                        sex: '男'
+                    });
+                    /* Vue 将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新。这些被包裹过的方法包括：
+                    push() pop() shift() unshift() splice() sort() reverse() */
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

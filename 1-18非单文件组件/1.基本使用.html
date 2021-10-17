@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <!-- 第三步:编辑组件标签 -->
+        <school></school>
+        <hr>
+        <student></student>
+        <student></student>
+        <hr>
+    </div>
+
+    <div id="root2">
+        <hello></hello>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //设置为 false 以阻止 vue 在启动时生成生产提示
+
+        //第一步,创建school组件
+        const school = Vue.extend({
+            //el:'#root',   //组件定义时一定不要写el 
+            template: `
+                <div>
+                    <h1>School name: {{school.name}}</h1>
+                    <h2>School address: {{school.address}}</h2>
+                </div>`,
+            //data必须使用函数式
+            data() {
+                return {
+                    school: {
+                        name: 'HAUST',
+                        address: 'LuoYang'
+                    }
+                }
+            }
+        });
+        //第一步,创建student组件
+        const student = Vue.extend({
+            template: `
+            <div>
+                <h1>Student name: {{student.name}}</h1>
+                <h2>Student age: {{student.age}}</h2>
+            </div>`,
+            data() {
+                return {
+                    student: {
+                        name: 'GYH',
+                        age: 20
+                    }
+                }
+            }
+        });
+
+
+        //##第一步,创建hello组件
+        const hello = Vue.extend({
+            template: `
+            <div>
+                <h2>hello!!{{name}}</h2>
+            </div>`,
+            data() {
+                return {
+                    name: 'Tommy'
+                }
+            }
+        });
+        //##第二步,注册全局组件(全局皆可使用)
+        Vue.component('hello', hello);
+
+
+        //创建vm
+        new Vue({
+            el: '#root',
+            //第二步,注册组件(局部注册)
+            components: {
+                school,
+                student
+            }
+        });
+
+
+        new Vue({
+            el: '#root2',
+        });
+    </script>
+</body>
+
+</html>

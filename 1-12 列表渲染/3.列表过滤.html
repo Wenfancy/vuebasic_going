@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入名字" v-model='keyWords'>
+        <ul>
+            <li v-for='(p,index) of filPersons' :key='p.id'>
+                {{p.id}}-{{p.name}}--{{p.sex}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //设置为 false 以阻止 vue 在启动时生成生产提示
+        //用watch实现
+        /* const vm = new Vue({
+            el: '#root',
+            data: {
+                keyWords: '',
+                persons: [{
+                        id: '001',
+                        name: '张毅',
+                        age: '19',
+                        sex: '男'
+                    },
+                    {
+                        id: '002',
+                        name: '李键',
+                        age: '29',
+                        sex: '男'
+                    },
+                    {
+                        id: '003',
+                        name: '赵雯',
+                        age: '19',
+                        sex: '女'
+                    },
+                    {
+                        id: '004',
+                        name: '徐鹤',
+                        age: '21',
+                        sex: '女'
+                    },
+                ],
+                filPersons: []
+            },
+            watch: {
+                keyWords:{
+                    immediate: true,
+                    handler(val) {
+                        this.filPersons = this.persons.filter((p) => {
+                            return p.name.indexOf(val) !== -1;
+                        });
+                    }
+                }
+            }
+        }); */
+        
+        //用computed实现 优先使用
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                keyWords: '',
+                persons: [{
+                        id: '001',
+                        name: '张毅',
+                        age: '19',
+                        sex: '男'
+                    },
+                    {
+                        id: '002',
+                        name: '李键',
+                        age: '29',
+                        sex: '男'
+                    },
+                    {
+                        id: '003',
+                        name: '赵雯',
+                        age: '19',
+                        sex: '女'
+                    },
+                    {
+                        id: '004',
+                        name: '徐鹤',
+                        age: '21',
+                        sex: '女'
+                    },
+                ],
+            },
+            computed: {
+                filPersons(){
+                    return this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWords) !== -1;
+                    });
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

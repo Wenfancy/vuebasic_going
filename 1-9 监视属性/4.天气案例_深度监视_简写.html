@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click='changeWeather'>切换天气</button> <!-- //@click后边可以跟简单的js语句 -->
+
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //设置为 false 以阻止 vue 在启动时生成生产提示
+        //
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+            },
+            methods: {
+                changeWeather() {
+                    return this.isHot = !this.isHot;
+                }
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽';
+                }
+            },
+            //监视属性
+            watch: {
+                //正常写法
+                /* info:{
+                    //immediate:true,//初始化时让handler执行一下
+                    //deep:true,//深度监视
+                    //handler什么时候调用？当isHot发生改变时 调用
+                    handler(newValue,oldValue){
+                        console.log('info被修改了 原来是',oldValue,'现在是',newValue);
+                    }
+                }, */
+
+                //简写
+                /* info(newV,oldV){
+                    console.log('info被修改了 原来是',oldV,'现在是',newV);
+                } */
+            }
+        });
+
+        //正常写法
+        /* vm.$watch('info', {
+            //immediate:true,//初始化时让handler执行一下
+            //deep:true,//深度监视
+            //handler什么时候调用？当isHot发生改变时 调用
+            handler(newValue, oldValue) {
+                console.log('info被修改了 原来是', oldValue, '现在是', newValue);
+            }
+        }); */
+
+        //简写
+        vm.$watch('info', {
+            handler(newV, oldV) {
+                console.log('info被修改了 原来是', oldV, '现在是', newV);
+            }
+        });
+    </script>
+</body>
+
+</html>

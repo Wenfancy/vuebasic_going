@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <Hello></Hello>
+        <School></School>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示
+        //定义 School 组件
+        const School = Vue.extend({
+            name:'School',
+            template:`
+            <div>
+                <h2>School</h2>
+                <h3>Name: {{name}}</h3>
+                <h3>Nddress: {{address}}</h3>
+                <hr>
+            </div>`,
+            data(){
+                return{
+                    name:'HAUST~',
+                    address:'LuoYang'
+                }
+            },
+
+        });
+        //定义 Hello 组件
+        const Hello = Vue.extend({
+            name:'Hello',
+            template:`<h1>{{msg}}</h1>`,
+            data(){
+                return{
+                    msg:'Welcome to HAUST'
+                }
+            }
+        });
+
+        console.log(School);//得知组件的本质是构造函数VueComponent
+        console.log(Hello);//得知组件的本质是构造函数VueComponent
+        
+        
+        
+        
+        
+        
+        const vm = new Vue({   
+            el:'#root',
+            components:{
+                School,
+                Hello
+            }
+        });
+        
+    </script>
+</body>
+</html>

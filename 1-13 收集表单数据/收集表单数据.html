@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>表单填写</title>
+</head>
+<script src="/js/vue.js"></script>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <form @submit.prevent='demo'>
+            <label for="account">👩🏻Account: </label>
+            <input type="text" id="account" placeholder="your account" v-model.trim='userInfo.account'>
+
+            <br><br>
+
+            <label for="pwd">🔒Password: </label>
+            <input type="password" id="pwd" placeholder="your password" v-model='userInfo.password'>
+
+            <br><br>
+            <label for="age">🧔🏻Age: </label>
+            <input type="number" id="age" placeholder="your age" v-model.number='userInfo.age'>
+
+            <br><br>Sex：
+            男🚹<input type="radio" name="sex" value="male" v-model='userInfo.sex'>
+            女🚺<input type="radio" name="sex" value="female" v-model='userInfo.sex'>
+
+            <br><br>Hobby：
+            🏀篮球<input type="checkbox" value="study" v-model='userInfo.hobby'>
+            ⚽足球<input type="checkbox" value="football" v-model='userInfo.hobby'>
+            🏓乒乓球<input type="checkbox" value="pingpang" v-model='userInfo.hobby'>
+
+            <br><br>School belong to：
+            <select v-model='userInfo.city'>
+                <option value="">Select your school-area</option>
+                <option value="开元">开元</option>
+                <option value="西苑">西苑</option>
+                <option value="景华">景华</option>
+                <option value="平顶山">平顶山</option>
+            </select>
+
+            <br><br>Other Information：<br>
+            <textarea name="" id="" cols="50" rows="4" placeholder="otherMes" v-model.lazy='userInfo.other'></textarea>
+
+            <br><br><input type="checkbox" v-model='userInfo.agree'>
+            阅读并接受<a href="#">用户协议🔑</a>
+            <br><br>
+            <button type="submit">Submit ☑</button>
+        </form>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //设置为 false 以阻止 vue 在启动时生成生产提示
+        //
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                userInfo: {
+                    account: '',
+                    password: '',
+                    age:'',
+                    sex: 'male',
+                    hobby: [],
+                    city: '开元',
+                    other: '',
+                    agree: ''
+                },
+            },
+            methods: {
+                demo() {
+                    //alert('Submited');
+                    console.log(JSON.stringify(this.userInfo));
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

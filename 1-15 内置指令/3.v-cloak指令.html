@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+</head>
+<style>
+    [v-cloak]{
+        display: none;
+    }
+</style>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <h1 v-cloak>Hello {{name}}</h1>
+        <h2>My age</h2>
+    </div>
+
+    <script src="/js/vue.js"></script>
+</body>
+<script>
+    Vue.config.productionTip = false; //设置为false以阻止vue在启动时生成生产提示
+    //
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            name: 'GYH'
+        }
+    });
+</script>
+
+</html>

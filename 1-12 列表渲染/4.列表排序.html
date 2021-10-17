@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入名字" v-model='keyWords'>
+        <button @click='sortType=2'>年龄升序</button>
+        <button @click='sortType=1'>年龄降序</button>
+        <button @click='sortType=0'>原顺序</button>
+        <ul>
+            <li v-for='(p,index) of filPersons' :key='p.id'>
+                {{p.id}}-{{p.name}}--{{p.sex}}--{{p.age}}
+                <input type="text" placeholder="备注">
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //设置为 false 以阻止 vue 在启动时生成生产提示
+        //用computed实现 优先使用
+        const vm = new Vue({
+            el: '#root',
+            
+            data: {
+                sortType:0,//0原顺序  1降序 2升序
+                keyWords: '',
+                persons: [{
+                        id: '001',
+                        name: '张毅',
+                        age: 18,
+                        sex: '男'
+                    },
+                    {
+                        id: '002',
+                        name: '李键',
+                        age: 29,
+                        sex: '男'
+                    },
+                    {
+                        id: '003',
+                        name: '赵雯',
+                        age: 19,
+                        sex: '女'
+                    },
+                    {
+                        id: '004',
+                        name: '徐鹤',
+                        age: 21,
+                        sex: '女'
+                    },
+                    {
+                        id: '005',
+                        name: '赵玥',
+                        age: 25,
+                        sex: '女'
+                    },
+                ],
+            },
+            computed: {
+                filPersons(){
+                    const arr = this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWords) !== -1;
+                    });
+                    if(this.sortType){
+                        arr.sort((a,b)=>{
+                            return this.sortType === 1 ? a.age-b.age:b.age-a.age;
+                        })
+                    }
+                    return arr;
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

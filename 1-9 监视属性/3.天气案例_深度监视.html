@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click='changeWeather'>切换天气</button> <!-- //@click后边可以跟简单的js语句 -->
+        <hr>
+        <h3>a的值是：{{numbers.a}}</h3>
+        <button @click='numbers.a++;'>让a+1</button>
+        <hr>
+        <h3>b的值是：{{numbers.b}}</h3>
+        <button @click='numbers.b++;'>让b+1</button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //设置为 false 以阻止 vue 在启动时生成生产提示
+        //
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+                numbers:{
+                    a:1,
+                    b:1
+                }
+            },
+            methods: {
+                changeWeather() {
+                    return this.isHot = !this.isHot;
+                }
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽';
+                }
+            },
+            //监视属性
+            watch:{
+                info:{
+                    immediate:true,//初始化时让handler调用一下
+                    //handler什么时候调用？当isHot发生改变时 调用
+                    handler(newValue,oldValue){
+                        console.log('info被修改了 原来是',oldValue,'现在是',newValue);
+                    }
+                },
+                /* 'numbers.a':{
+                    handler(newValue,oldValue){
+                        console.log('a被修改了 原来是',oldValue,'现在是',newValue);
+                    }
+                } */
+                
+                numbers:{
+                    deep:true,//监视多级结构中所有属性的变化
+                    handler(newValue,oldValue){
+                        console.log('change');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

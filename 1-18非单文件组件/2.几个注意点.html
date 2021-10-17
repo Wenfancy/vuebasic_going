@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <Someone></Someone>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示
+        //定义组件
+        //可直接简写(去掉Vue.extend())
+        const Someone = Vue.extend({
+            name:'person',
+            template:`
+            <div>
+                <h2>message:{{msg}}</h2>
+                <h2>age:{{age}}</h2>
+            </div>`,
+            data(){
+                return{
+                    msg:'heyman~',
+                    age:19
+                }
+            }
+        });
+
+        new Vue({   
+            el:'#root',
+            components:{
+                Someone
+            }
+        });
+    </script>
+</body>
+</html>

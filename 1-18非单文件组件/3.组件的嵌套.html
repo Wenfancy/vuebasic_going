@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示
+        
+        //定义 Student 组件
+        const Student = Vue.extend({
+            name:'Student',
+            template:`
+            <div>
+                <h2>Student</h2>
+                <h3>Name:{{name}}</h3>
+                <h3>Age:{{age}}</h3>
+            </div>`,
+            data(){
+                return{
+                    name:'GYH',
+                    age:20
+                }
+            }
+        });
+        
+        //定义 School 组件
+        const School = Vue.extend({
+            name:'School',
+            template:`
+            <div>
+                <h2>School</h2>
+                <h3>Name: {{name}}</h3>
+                <h3>Nddress: {{address}}</h3>
+                <hr>
+                <Student></Student>
+            </div>`,
+            data(){
+                return{
+                    name:'HAUST~',
+                    address:'LuoYang'
+                }
+            },
+            //嵌套
+            components:{
+                Student
+            }
+        });
+
+        //定义Hello组件
+        const Hello = Vue.extend({
+            name:'Hello',
+            template:`<h1>{{msg}}</h1>`,
+            data(){
+                return{
+                    msg:'Welcome to HAUST'
+                }
+            }
+        });
+        
+        //定义app组件(管理所有组件)
+        const app = Vue.extend({
+            components:{
+                School,
+                Hello
+            },
+            template:`
+            <div>
+                <Hello></Hello>
+                <School></School>
+            </div>`
+        });
+        
+        
+        
+        
+        new Vue({
+            template:`<app></app>`,
+            el:'#root',
+            components:{
+                app
+            }
+        });
+    </script>
+</body>
+</html>

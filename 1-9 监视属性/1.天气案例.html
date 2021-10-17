@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click='changeWeather'>切换天气</button>  <!-- //@click后边可以跟简单的js语句 -->
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示
+        //
+        const vm = new Vue({   
+            el:'#root',
+            data:{
+                isHot:true
+            },
+            methods: {
+                changeWeather(){
+                    return this.isHot = !this.isHot;
+                }
+            },
+            computed: {
+                info(){
+                    return this.isHot?'炎热':'凉爽';
+                }   
+            }
+        });
+    </script>
+</body>
+</html>

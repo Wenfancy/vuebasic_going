@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <h1 :style="{opacity:opacity}">Helloworld</h1>
+        <button @click='stop'>点击停止变换</button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示
+        //
+        const vm = new Vue({   
+            el:'#root',
+            data:{
+                opacity:1
+            },
+            methods: {
+                stop(){
+                    this.$destroy();
+                }
+            },
+            //a(){},
+            //b(){},
+            mounted() {
+                console.log('mounted');
+                console.log(this);//this指向已维护为vm
+                this.timer=setInterval(()=>{
+                    this.opacity-=0.01;
+                    if(this.opacity<=0) this.opacity=1;
+                },16)
+            },
+            beforeDestroy() {
+                clearInterval(this.timer);
+                console.log('vm驾鹤西游了');
+            },
+        });
+    </script>
+</body>
+</html>

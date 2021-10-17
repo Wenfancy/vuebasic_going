@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        姓:<input type="text" v-model="firstName">
+        <br>
+        名:<input type="text" v-model="lastName">
+        <br>
+        全名:<span>{{fullname()}}</span><!-- 每次修改数据Vue会重新解析模板，插值中调用的函数就会重新调用 -->
+        <!-- 但是会影响效率 且没有缓存 如果有重复会影响性能 反复调用-->
+        
+        <!-- <br>
+        <button @click="fullname">click me!</button> -->
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示
+        //
+        const vm = new Vue({   
+            el:'#root',
+            data:{
+                firstName:'张',
+                lastName:'三'
+            },
+            methods:{
+                fullname(){
+                    return this.firstName+'-'+this.lastName
+                }
+            }
+        });
+    </script>
+</body>
+</html>

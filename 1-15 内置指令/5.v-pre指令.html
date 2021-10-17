@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>projectTitle</title>
+</head>
+<script src="/js/vue.js"></script>
+<body>
+    <!-- 准备一个容器 -->
+    <!-- 
+		v-pre指令：
+				1.跳过其所在节点的编译过程。
+				2.可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译。
+     -->
+    <div id="root">
+        <h1 v-pre>Helloworld</h1>
+        <h1>My age:{{age}}</h1>
+        <button @click='age++'>click me +1 </button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示
+        //
+        const vm = new Vue({   
+            el:'#root',
+            data:{
+                age:18
+            }
+        });
+    </script>
+</body>
+</html>

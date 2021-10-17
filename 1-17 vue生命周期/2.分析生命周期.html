@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>分析生命周期</title>
+	<!-- 引入Vue -->
+	<script type="text/javascript" src="/js/vue.js"></script>
+</head>
+
+<body>
+	<!-- 准备好一个容器-->
+	<div id="root" :x="n">
+		<h2 v-text="n"></h2>
+		<h2>当前的n值是：{{n}}</h2>
+		<button @click="add">点我n+1</button>
+		<button @click="bye">点我销毁vm</button>
+	</div>
+</body>
+
+<script type="text/javascript">
+	Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+
+	new Vue({
+		el: '#root',
+		/* 			template:`
+					<div>
+						<h2 v-text="n"></h2>
+						<h2>当前的n值是：{{n}}</h2>
+						<button @click="add">点我n+1</button>
+						<button @click="bye">点我销毁vm</button>
+					</div>`, */
+		data: {
+			n: 1
+		},
+		methods: {
+			add() {
+				console.log('add');
+				this.n++;
+			},
+			bye() {
+				this.$destroy();
+				console.log('bye');
+			}
+		},
+		watch: {
+
+		},
+		beforeCreate() {
+			console.log('beforeCreate') //初始化生命周期,事件,数据代理还未开始
+			//console.log(this);
+			//debugger;//断点
+		},
+		created() {
+			console.log('created') //初始化数据监测,数据代理
+			//console.log(this);
+			//debugger;//断点
+		},
+		beforeMount() {
+			console.log('beforeMount') //此时页面呈现的是未经Vue编译的Dom结构  此时操纵dom最终都不奏效
+			//debugger;//断点
+		},
+		mounted() {
+			console.log('mounted') //此时操纵dom奏效但尽量避免 至此初始化结束,议案在此阶段开启定时器 发送网络请求...
+			//console.log(this);
+			//debugger;//断点
+		},
+		beforeUpdate() {
+			console.log('beforeUpdate');
+			/* console.log(this.n);
+			debugger; */
+		},
+		updated() {
+			console.log('updated')
+			/* console.log(this.n);
+			debugger; */
+		},
+		beforeDestroy() {
+			console.log('beforeDestroy')//需要调用vm.$distory
+		},
+		destroyed() {
+			console.log('destroyed')//只剩下原生回调
+		},
+	})
+</script>
+
+</html>

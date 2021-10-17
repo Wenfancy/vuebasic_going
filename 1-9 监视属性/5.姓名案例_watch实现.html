@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>watch对比computed</title>
+</head>
+<script src="/js/vue.js"></script>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        姓:<input type="text" v-model="firstName">
+        <br>
+        名:<input type="text" v-model="lastName">
+        <br>
+        全名:<span>{{fullName}}</span><br>
+        <button @click='changeName'>改为李四</button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;//设置为 false 以阻止 vue 在启动时生成生产提示
+        //
+        const vm = new Vue({   
+            el:'#root',
+            //属性
+            data:{
+                firstName:'张',
+                lastName:'三',
+                fullName:'张-三'
+            },
+            //计算属性
+            methods:{
+                changeName(){
+                    this.fullName='李-四';
+                }
+            },
+            watch: {
+                firstName(newValue){
+                    this.fullName=newValue+'-'+this.lastName;
+                },
+                lastName(newValue){
+                    this.fullName=this.firstName+'-'+newValue;
+                }
+            },
+        });
+
+
+
+
+    </script>
+</body>
+</html>
